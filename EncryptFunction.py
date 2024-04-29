@@ -2,13 +2,13 @@ import math
 import random
 import json
 
-json_data = [{"clientID": "1",
+/*json_data = [{"clientID": "1",
               "Name": "Pota",
               "Age": 19,
               "Timestamp": "2023-11-14T10:26:31.591676",
               "Loan Amount": 1500000}]
 
-print("Original JSON data:", json_data)
+print("Original JSON data:", json_data)*/
 
 def is_prime(x):
     """ Check if a number is prime. """
