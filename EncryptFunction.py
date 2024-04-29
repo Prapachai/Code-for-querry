@@ -2,14 +2,21 @@ import math
 import random
 import json
 
-##Fix filepath
-/*json_data = [{"clientID": "1",
-              "Name": "Pota",
-              "Age": 19,
-              "Timestamp": "2023-11-14T10:26:31.591676",
-              "Loan Amount": 1500000}]
+file_path = r'/Users/kullawatsatukulsan/Downloads/Code-for-querry-main/informationofclient.json'
 
-print("Original JSON data:", json_data)*/
+# Open the file for reading
+try:
+    with open(file_path, 'r') as file:
+        json_data = json.load(file)  # Load the content of the JSON file into a Python object
+    print("File loaded successfully!")
+    # Optionally print out the contents to verify the data
+    
+except FileNotFoundError:
+    print("Error: File not found. Check the file path.")
+except json.JSONDecodeError:
+    print("Error: File is not a valid JSON.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 
 def is_prime(x):
     """ Check if a number is prime. """
