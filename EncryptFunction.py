@@ -2,21 +2,79 @@ import math
 import random
 import json
 
-file_path = r'/Users/kullawatsatukulsan/Downloads/Code-for-querry-main/informationofclient.json'
+json_data = [
+  {
+      "clientID": "1",
+      "Name": "Pota",
+      "Age": 19,
+      "Timestamp": "2023-11-14T10:26:31.591676",
+      "Loan Amount": 1500000
+  },
+  {
+      "clientID": "2",
+      "Name": "Lego",
+      "Age": 20,
+      "Timestamp": "2024-04-23T10:26:31.591712",
+      "Loan Amount": 1000000
+  },
+  {
+      "clientID": "3",
+      "Name": "Bingbing",
+      "Age": 32,
+      "Timestamp": "2023-10-27T10:26:31.591722",
+      "Loan Amount": 6428.62
+  },
+  {
+      "clientID": "4",
+      "Name": "Dada",
+      "Age": 57,
+      "Timestamp": "2023-06-11T10:26:31.591729",
+      "Loan Amount": 42449.83
+  },
+  {
+      "clientID": "5",
+      "Name": "Labubu",
+      "Age": 55,
+      "Timestamp": "2023-04-29T10:26:31.591741",
+      "Loan Amount": 46747.39
+  },
+  {
+      "clientID": "6",
+      "Name": "Bob",
+      "Age": 18,
+      "Timestamp": "2023-07-23T10:26:31.591749",
+      "Loan Amount": 10284.79
+  },
+  {
+      "clientID": "7",
+      "Name": "Rick",
+      "Age": 29,
+      "Timestamp": "2023-08-01T10:26:31.591755",
+      "Loan Amount": 18691.3
+  },
+  {
+      "clientID": "8",
+      "Name": "Whong",
+      "Age": 56,
+      "Timestamp": "2024-03-15T10:26:31.591762",
+      "Loan Amount": 6504.37
+  },
+  {
+      "clientID": "9",
+      "Name": "John",
+      "Age": 56,
+      "Timestamp": "2023-10-26T10:26:31.591770",
+      "Loan Amount": 47870.33
+  },
+  {
+      "clientID": "10",
+      "Name": "Rew",
+      "Age": 50,
+      "Timestamp": "2023-06-20T10:26:31.591776",
+      "Loan Amount": 48645.16
+  }
+]
 
-# Open the file for reading
-try:
-    with open(file_path, 'r') as file:
-        json_data = json.load(file)  # Load the content of the JSON file into a Python object
-    print("File loaded successfully!")
-    # Optionally print out the contents to verify the data
-    
-except FileNotFoundError:
-    print("Error: File not found. Check the file path.")
-except json.JSONDecodeError:
-    print("Error: File is not a valid JSON.")
-except Exception as e:
-    print(f"An error occurred: {e}")
 
 def is_prime(x):
     """ Check if a number is prime. """
