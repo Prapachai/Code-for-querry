@@ -4,69 +4,69 @@
       "Name": "Pota",
       "Age": 19,
       "Timestamp": "2023-11-14T10:26:31.591676",
-      "Loan Amount": 34298.88
+      "Loan Amount": 1500000
   },
   {
       "clientID": "2",
       "Name": "Lego",
       "Age": 20,
       "Timestamp": "2024-04-23T10:26:31.591712",
-      "Loan Amount": 30728.29
+      "Loan Amount": 2050000
   },
   {
       "clientID": "3",
       "Name": "Bingbing",
       "Age": 32,
       "Timestamp": "2023-10-27T10:26:31.591722",
-      "Loan Amount": 6428.62
+      "Loan Amount": 10000000
   },
   {
       "clientID": "4",
       "Name": "Dada",
       "Age": 57,
       "Timestamp": "2023-06-11T10:26:31.591729",
-      "Loan Amount": 42449.83
+      "Loan Amount": 5000000
   },
   {
       "clientID": "5",
       "Name": "Labubu",
       "Age": 55,
       "Timestamp": "2023-04-29T10:26:31.591741",
-      "Loan Amount": 46747.39
+      "Loan Amount": 800000
   },
   {
       "clientID": "6",
       "Name": "Bob",
       "Age": 18,
       "Timestamp": "2023-07-23T10:26:31.591749",
-      "Loan Amount": 10284.79
+      "Loan Amount": 9500000
   },
   {
       "clientID": "7",
       "Name": "Rick",
       "Age": 29,
       "Timestamp": "2023-08-01T10:26:31.591755",
-      "Loan Amount": 18691.3
+      "Loan Amount": 25400000
   },
   {
       "clientID": "8",
       "Name": "Whong",
       "Age": 56,
       "Timestamp": "2024-03-15T10:26:31.591762",
-      "Loan Amount": 6504.37
+      "Loan Amount": 15000000
   },
   {
       "clientID": "9",
       "Name": "John",
       "Age": 56,
       "Timestamp": "2023-10-26T10:26:31.591770",
-      "Loan Amount": 47870.33
+      "Loan Amount": 34000000
   },
   {
       "clientID": "10",
       "Name": "Rew",
       "Age": 50,
       "Timestamp": "2023-06-20T10:26:31.591776",
-      "Loan Amount": 48645.16
+      "Loan Amount": 15000000
   }
 ]
