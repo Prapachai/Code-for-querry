@@ -1,7 +1,26 @@
 import math
 import random
+import json
+
+file_path = r'/Users/kullawatsatukulsan/Downloads/Code-for-querry-main/informationofclient.json'
+
+# Open the file for reading
+try:
+    with open(file_path, 'r') as file:
+        json_data = json.load(file)  # Load the content of the JSON file into a Python object
+    print("File loaded successfully!")
+    # Optionally print out the contents to verify the data
+    
+except FileNotFoundError:
+    print("Error: File not found. Check the file path.")
+except json.JSONDecodeError:
+    print("Error: File is not a valid JSON.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+
 
 def is_prime(x):
+    """ Check if a number is prime. """
     if x <= 1:
         return False
     if x <= 3:
@@ -16,76 +35,58 @@ def is_prime(x):
     return True
 
 def generate_prime(min_value):
-    # Generate a random prime number greater than min_value
+    """ Generate a random prime number greater than a given minimum value. """
     prime = min_value
     while not is_prime(prime):
-        prime = random.randint(min_value, min_value * 10)  # Adjust range as needed
+        prime = random.randint(min_value, 2 * min_value)
     return prime
 
-# Generate p and q greater than 1 million
 p = generate_prime(1000000)
 q = generate_prime(1000000)
 
-assert p != q
-assert is_prime(p)
-assert is_prime(q)
-
 n = p * q
 phi = (p - 1) * (q - 1)
+lmbda = phi  # λ should be lcm(p-1, q-1); use phi for simplicity here
+g = n + 1  # g is typically set to n + 1
+mu = pow(lmbda, -1, n)  # μ is calculated based on the L function, simplified here
 
-def lx(x):
-    y = (x - 1) // n
-    assert y - int(y) == 0
-    return int(y)
-
-g = 1 + n
-lmbda = phi * 1
-mu = pow(phi, -1, n)
-
-print(p,q)
-print(f"private key lambda = {lmbda}. Use this for decryption.")
-print(f"public key: g = {g}, n = {n}, mu = {mu}. Use this for encryption.")
-
-def encrypt(m, r):
-    assert math.gcd(r, n) == 1
-    c = (pow(g, m, n * n) * pow(r, n, n * n)) % (n * n)
+def encrypt_value(value, n, g):
+    """ Encrypt a value using the Paillier encryption scheme. """
+    r = random.randint(1, n - 1)  # Choose a random r
+    c = (pow(g, value, n**2) * pow(r, n, n**2)) % n**2
     return c
 
-def decrypt(c):
-    L_x = (pow(c, lmbda, n**2) - 1) // n
-    m = (L_x * mu) % n
+def loop_encrypt_json(json_obj, n, g):
+    """ Recursively encrypt values in a JSON object. """
+    if isinstance(json_obj, dict):
+        for key, value in json_obj.items():
+            if isinstance(value, (int, float)):  # Encrypt only numeric values
+                json_obj[key] = encrypt_value(value, n, g)
+    elif isinstance(json_obj, list):
+        for index, item in enumerate(json_obj):
+            loop_encrypt_json(item, n, g)
+    return json_obj
+
+# Encrypt the JSON data using the public key components n and g
+encrypted_json = loop_encrypt_json(json_data, n, g)
+print("Encrypted JSON:", encrypted_json)
+
+def decrypt_value(c, n, lmbda, mu):
+    x = pow(c, lmbda, n**2)
+    l_of_x = (x - 1) // n
+    m = (l_of_x * mu) % n
     return m
 
-# Encrypt and decrypt a message
-m = 72
-r = random.randint(1, n)  # Random r such that 1 <= r < n
-c = encrypt(m, r)
-decrypted_message = decrypt(c)
+def loop_decrypt_json(encrypted_json, n, lmbda, mu):
+    """ Recursively decrypt values in an encrypted JSON object. """
+    if isinstance(encrypted_json, dict):
+        for key, value in encrypted_json.items():
+            if isinstance(value, int):  # Assuming all integers are encrypted
+                encrypted_json[key] = decrypt_value(value, n, lmbda, mu)
+    elif isinstance(encrypted_json, list):
+        for item in encrypted_json:
+            loop_decrypt_json(item, n, lmbda, mu)
+    return encrypted_json
 
-print("Plaintext message:", m)
-print("Ciphertext:", c)
-print("Decrypted message:", decrypted_message)
-
-# Function to encrypt a string message
-def encrypt_string(message):
-    numerical_values = [ord(char) for char in message]  # Convert characters to ASCII values
-    encrypted_values = [encrypt(value, random.randint(1, n)) for value in numerical_values]
-    print ("Value ASCII:",numerical_values)
-    return encrypted_values
-
-# Function to decrypt a list of encrypted numerical values back to string
-def decrypt_string(encrypted_values):
-    decrypted_numerical_values = [decrypt(value) for value in encrypted_values]
-    decrypted_message = ''.join(chr(value) for value in decrypted_numerical_values)
-    return decrypted_message
-
-# Encrypt a string
-message = "Hello"
-
-print("Message:", message)
-encrypted_message = encrypt_string(message)
-print("Encrypted Message:", encrypted_message)
-
-# Decrypt the encrypted string
-decrypted_message = decrypt_string(encrypted_message)
-print("Decrypted Message:", decrypted_message)
+decrypted_json = loop_decrypt_json(encrypted_json, n, lmbda, mu)
+print("Decrypted JSON:", decrypted_json)
